@@ -20,4 +20,12 @@ class ContactController extends Controller
         $contact->delete();
         return redirect()->back()->with('success', 'Contact deleted');
     }
+
+    public function read(string $id)
+    {
+        $contact = Contact::findOrFail($id);
+        $contact->status = 1;
+        $contact->save();
+        return redirect()->back()->with('success', 'Contact message readed');
+    }
 }

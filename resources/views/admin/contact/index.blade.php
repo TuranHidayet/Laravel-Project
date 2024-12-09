@@ -40,6 +40,9 @@
                                     @endif
                                 </td>
                                 <td class="d-flex column-gap-2">
+                                    @if(!$contact->status)
+                                    <a href="{{route('admin.contact.read', ['id'=>$contact->id])}}" onclick="confirm('Are you sure to change status?')" class="btn btn-sm btn-info">Read</a>
+                                    @endif
                                     <a href="{{route('admin.contact.destroy', ['id'=>$contact->id])}}" onclick="confirm('Are you sure to delete this car?')" class="btn btn-sm btn-danger">Delete</a>
                                 </td>
                             </tr>
@@ -52,8 +55,10 @@
     </div>
     </body>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    <x-admin.alert/>
 
 @endsection
+
+<script>
+    var contactId = @json($contact->id);
+</script>

@@ -29,6 +29,9 @@ class StoreCarRequest extends FormRequest
             'color' => 'nullable|string|max:50',
             'price' => 'nullable|numeric|min:0',
             'status' => 'nullable',
+            'features' => 'nullable|array',
+            'features.*' => 'nullable|string',
+            'description' => 'nullable|string',
         ];
     }
 }

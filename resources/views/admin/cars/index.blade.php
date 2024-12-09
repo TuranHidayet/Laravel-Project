@@ -29,7 +29,7 @@
                         <tbody>
                         @foreach($cars as $key=>$car)
                         <tr>
-                            <td>{{$key}}</td>
+                            <td>{{$key+1}}</td>
                             <td><img src="{{Storage::url($car->image)}}" alt="{{$car->brand}}" width="100" height="70"></td>
                             <td>{{$car->brand}}</td>
                             <td>{{$car->model}}</td>
@@ -58,8 +58,7 @@
     </div>
 </body>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
+<x-admin.alert/>
 @endsection

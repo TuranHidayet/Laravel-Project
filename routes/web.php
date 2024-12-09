@@ -9,14 +9,17 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\LocaleController;
 
-
+//Front Routlar
 Route::name('app.')->group(function () {
     Route::controller(HomeController::class)->group(function () {
         Route::get('/', 'index')->name('home');
         Route::get('/about', 'about')->name('about');
         Route::get('/cars', 'cars')->name('cars');
-        Route::get('/cars{id}', 'car')->name('car');
+        Route::get('/cars/{id}', 'car')->name('car');
         Route::get('/contact', 'contact')->name('contact');
         Route::get('/blogs', 'blogs')->name('blogs');
     });
@@ -33,6 +36,7 @@ Route::name('app.')->group(function () {
     });
 });
 
+//Admin Routlar
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::controller(AuthController::class)->group(function () {
        Route::get('/login', 'login')->name('login');
@@ -43,7 +47,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('destroy/{id}', 'destroy')->name('destroy');
     });
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('admin');
 
     Route::controller(CarController::class)->prefix('cars')->name('cars.')->middleware('auth')->group(function () {
         Route::get('/', 'index')->name('index');
@@ -57,9 +61,26 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::controller(AdminContactController::class)->prefix('contact')->name('contact.')->middleware('auth')->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/read/{id}', 'read')->name('read');
         Route::get('/destroy/{id}', 'destroy')->name('destroy');
     });
+
+    Route::controller(SettingController::class)->prefix('setting')->name('setting.')->middleware('admin')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/update', 'update')->name('update');
+    });
+
+    Route::controller(ServiceController::class)->prefix('service')->name('service.')->middleware('admin')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update/{id}', 'update')->name('update');
+        Route::get('destroy/{id}', 'destroy')->name('destroy');
+    });
 });
+
+Route::get('locale{locale}', [LocaleController::class, 'changeLang'])->name('locale');
 
 
 

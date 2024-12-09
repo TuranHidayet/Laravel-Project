@@ -61,6 +61,21 @@
                         <li><strong>Price:</strong> <span id="car-status">{{$car->price}} $</span></li>
                         <li><strong>Status:</strong> <span id="car-price">{{$car->status}}</span></li>
                     </ul>
+
+                    <ul class="features">
+                        @if($features)
+                            @foreach($services as $service)
+                                @php
+                                    $isCarService = in_array($service->id, $features);
+                                @endphp
+                                @if($isCarService)
+                                    <li class="check"><span class="ion-ios-checkmark" id="car-price">{{$service->name}}</span></li>
+{{--                                @else--}}
+{{--                                    <li class="remove"><span class="ion-ios-close" id="car-price">{{$service->name}}</span></li>--}}
+                                @endif
+                            @endforeach
+                        @endif
+                    </ul>
                     <div class="d-flex mt-5">
                         <p><a href="{{ route('app.cars', ['id'=>$car->id]) }}" class="btn btn-info btn-sm"> Cars</a></p>
                         <p><a href="#" class="btn btn-success btn-sm ml-4">Rent Now</a></p>
@@ -69,14 +84,12 @@
             </div>
         </div>
 
-        <!-- Car Description -->
+
         <div class="row mt-5">
             <div class="col-12">
                 <div class="car-description-container p-4 bg-light rounded shadow">
                     <h3 class="font-weight-bold mb-3">Car Description</h3>
-                    <p id="car-description">
-                        This car is a perfect blend of luxury and performance. Equipped with the latest technology and designed for comfort, it offers an unparalleled driving experience. Ideal for both city drives and long journeys.
-                    </p>
+                    <p id="car-description">{!! $car->description !!}</p>
                 </div>
             </div>
         </div>

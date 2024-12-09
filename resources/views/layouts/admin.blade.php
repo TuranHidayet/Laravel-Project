@@ -58,6 +58,9 @@
     <link href="{{ asset('assets/admin/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
+{{--    sweat alert--}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Main CSS File -->
     <link href="{{ asset('assets/admin/css/main.css') }}" rel="stylesheet">
     @yield('customCss')
@@ -85,6 +88,9 @@
 <script src="{{ asset('assets/admin/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
 <script src="{{ asset('assets/admin/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
 <script src="{{ asset('assets/admin/vendor/swiper/swiper-bundle.min.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Main JS File -->
 <script src="{{ asset('assets/admin/js/main.js') }}"></script>

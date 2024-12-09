@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCarRequest;
 use App\Http\Requests\UpdateCarRequest;
 use App\Models\Car;
+use App\Models\Service;
 use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
@@ -18,7 +19,8 @@ class CarController extends Controller
 
     public function create()
     {
-        return view('admin.cars.create');
+        $services = Service::whereStatus(1)->get();
+        return view('admin.cars.create', compact('services'));
     }
 
     public function store(StoreCarRequest $request)
@@ -28,6 +30,9 @@ class CarController extends Controller
         if ($request->hasFile('image')) {
             $validated['image'] = Storage::putFile('uploads/cars/images', $request->file('image'));
         }
+
+        $selectedServices = $request->input('features', []);
+        $validated['features'] =$selectedServices ? json_encode($selectedServices) : null;
 
         Car::create($validated);
 

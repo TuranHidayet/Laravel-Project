@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Car;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\View\View;
 
@@ -12,7 +13,8 @@ class HomeController extends Controller
 {
     public function index(): View
     {
-        return view('front.home');
+        $cars = Car::where('status', 1)->get();
+        return view('front.home', compact('cars'));
     }
 
     public function about(){
@@ -26,13 +28,16 @@ class HomeController extends Controller
     }
 
     public function car(string $id){
-        $car = Car::find($id);
+        $car      = Car::find($id);
+        $features = json_decode($car->features);
+        $services = Service::whereStatus(1)->get();
 
-        return view('front.car', compact('car'));
+        return view('front.car', compact('car', 'features', 'services'));
     }
 
     public function blogs(){
-        return view('front.blogs');
+        $cars = Car::where('status', 1)->get();
+        return view('front.blogs', compact('cars'));
     }
 
     public function contact(){

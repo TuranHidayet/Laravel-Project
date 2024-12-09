@@ -8,7 +8,7 @@
     <meta content="" name="keywords">
 
 {{--    car.blade sehifesi css. --}}
-    @yield('customCss')
+
 
 
     <title>CarRental &mdash; Free Website Template by Colorlib</title>
@@ -27,9 +27,15 @@
     <link rel="stylesheet" href="{{ asset('assets/front/fonts/flaticon/font/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/front/css/aos.css') }}">
 
+{{--    JQuery--}}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    {{--    sweat alert--}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ asset('assets/front/css/style.css') }}">
-
+    @yield('customCss')
 </head>
 
 <body>
@@ -53,7 +59,7 @@
 <script src="{{ asset('assets/front/js/aos.js') }}"></script>
 <script src="{{ asset('assets/front/js/main.js') }}"></script>
 
-
+@yield('customJs')
 </body>
 
 </html>

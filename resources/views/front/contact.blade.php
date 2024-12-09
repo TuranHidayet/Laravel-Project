@@ -1,3 +1,5 @@
+@section('title', 'Contact')
+
 @extends('layouts.app')
 
 @section('content')
@@ -7,11 +9,12 @@
 
     <div class="site-section bg-light" id="contact-section">
             <div class="container mt-5">
+
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <div class="contact-container p-4 rounded shadow bg-light">
                             <h2 class="text-center mb-4">Contact Us</h2>
-                            <form action="{{route('app.contact.store')}}" method="POST">
+                            <form id="contactForm">
                             @csrf
 
                                 <div class="form-group">
@@ -54,5 +57,51 @@
                 </div>
             </div>
     </div>
+@endsection
+
+@section('customJs')
+
+    <script>
+        function showAlert(title, text, icon = 'success', btnText = 'OK'){
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: icon,
+                confirmButton: btnText
+            })
+        }
+
+        $(document).ready(function (){
+            $("#contactForm").on('submit', function(e){
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    url: '{{route('app.contact.store')}}',
+                    method: "POST",
+                    data: formData,
+                    success: function (response){
+                        showAlert('success', 'Your message has been successfuly')
+                    },
+                    error: function (error){
+                        showAlert('error', 'Your have an error', 'error')
+                    }
+                });
+            });
+        });
+    </script>
+
+    @if(session('success'))
+      <script>
+          Swal.fire({
+              title: "Great Job!",
+              text: "{{session('success')}}",
+              icon: "success",
+              confirmButton: 'cool'
+          })
+      </script>
+     @endif
+
 @endsection
 
